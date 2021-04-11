@@ -31,23 +31,27 @@ const modalContainerEl = document.querySelector('.js-lightbox');
 listGalleryEl.addEventListener('click', onItemGalleryClick);
 
 function onItemGalleryClick(event) {
-  // if (event.target.nodeName !== 'IMG') {
-  //   return;
-  // }
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+  event.preventDefault();
   openModalWindow();
 }
 
 // Открытие модального окна по клику на элементе галереи.
-
 function openModalWindow() {
   modalContainerEl.classList.add('is-open');
 }
 
 // Подмена значения атрибута src элемента img.lightbox__image.
-const originalImgLinkEl = document.querySelector('.gallery__image');
 const modalImgEl = document.querySelector('.lightbox__image');
-modalImgEl.src = originalImgLinkEl.dataset.source;
-console.log(modalImgEl);
+const originalImagesEl = document.querySelectorAll('.gallery__image');
+
+const originalImgLinksEl = originalImagesEl.forEach(image => {
+  if (modalImgEl.src !== image.dataset.source) {
+    modalImgEl.src = image.dataset.source;
+  }
+});
 
 //Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"].
 modalContainerEl.addEventListener('click', onModalContainerClick);
@@ -59,5 +63,4 @@ function onModalContainerClick(event) {
   }
   modalContainerEl.classList.remove('is-open');
 }
-
 //Очистка значения атрибута src элемента img.lightbox__image.
