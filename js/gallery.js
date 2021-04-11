@@ -1,6 +1,8 @@
 import images from './gallery-items.js';
 
 const listGalleryEl = document.querySelector('.js-gallery');
+const galleryImagesEl = document.querySelectorAll('.gallery__image');
+const lightboxImageEl = document.querySelector('.lightbox__image');
 
 // Create Markup for items and insert into the gallery list
 // Создание и рендер разметки по массиву данных и предоставленному шаблону.
@@ -27,7 +29,6 @@ listGalleryEl.insertAdjacentHTML('beforeend', galleryItems);
 
 //Реализация делегирования на галерее ul.js-gallery и получение url большого изображения.
 const modalContainerEl = document.querySelector('.js-lightbox');
-
 listGalleryEl.addEventListener('click', onItemGalleryClick);
 
 function onItemGalleryClick(event) {
@@ -36,6 +37,7 @@ function onItemGalleryClick(event) {
   }
   event.preventDefault();
   openModalWindow();
+  addAtribute(event.target.dataset.source);
 }
 
 // Открытие модального окна по клику на элементе галереи.
@@ -44,14 +46,9 @@ function openModalWindow() {
 }
 
 // Подмена значения атрибута src элемента img.lightbox__image.
-const modalImgEl = document.querySelector('.lightbox__image');
-const originalImagesEl = document.querySelectorAll('.gallery__image');
-
-const originalImgLinksEl = originalImagesEl.forEach(image => {
-  if (modalImgEl.src !== image.dataset.source) {
-    modalImgEl.src = image.dataset.source;
-  }
-});
+function addAtribute(url) {
+  lightboxImageEl.src = url;
+}
 
 //Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"].
 modalContainerEl.addEventListener('click', onModalContainerClick);
@@ -62,5 +59,9 @@ function onModalContainerClick(event) {
     return;
   }
   modalContainerEl.classList.remove('is-open');
+  removeAtribute(lightboxImageEl);
 }
 //Очистка значения атрибута src элемента img.lightbox__image.
+function removeAtribute(event) {
+  event.src = '';
+}
