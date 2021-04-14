@@ -38,7 +38,7 @@ function onItemGalleryClick(event) {
   }
   event.preventDefault();
   openModal();
-  addAtribute(galleryImg.dataset.source);
+  addAtributes(galleryImg);
 }
 
 // Открытие модального окна по клику на элементе галереи.
@@ -48,8 +48,9 @@ function openModal() {
 }
 
 // Подмена значения атрибута src элемента img.lightbox__image.
-function addAtribute(url) {
-  lightboxImageEl.src = url;
+function addAtributes(img) {
+  lightboxImageEl.src = img.dataset.source;
+  lightboxImageEl.alt = img.alt;
 }
 
 //Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"].
@@ -80,9 +81,10 @@ function onEscKeyPress(event) {
 function closeModal() {
   window.removeEventListener('keydown', onEscKeyPress);
   modalContainerEl.classList.remove('is-open');
-  removeAtribute(lightboxImageEl);
+  removeAtributes(lightboxImageEl);
 }
 //Очистка значения атрибута src элемента img.lightbox__image.
-function removeAtribute(image) {
+function removeAtributes(image) {
   image.src = '';
+  img.alt = '';
 }
