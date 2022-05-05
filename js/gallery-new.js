@@ -90,7 +90,7 @@ const imgSrcs = images.map(e => e.original);
 function changeImageByKeys(evt) {
   let currentSrcIndex = imgSrcs.indexOf(refs.modalImg.src);
   let lastSrcIndex = imgSrcs.indexOf(imgSrcs[imgSrcs.length - 1]);
- 
+
   if (evt.code === 'ArrowLeft') {
     currentSrcIndex =
       currentSrcIndex !== 0 ? currentSrcIndex - 1 : lastSrcIndex;
